@@ -295,6 +295,19 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+        Dialog.setTabOrder(self._0NewContactName, self._1NewContactAddress)
+        Dialog.setTabOrder(self._1NewContactAddress, self._2NewContactEmail_2)
+        Dialog.setTabOrder(self._2NewContactEmail_2, self._2NewContactEmail_3)
+        Dialog.setTabOrder(self._2NewContactEmail_3, self._2NewContactEmail_4)
+        Dialog.setTabOrder(self._2NewContactEmail_4, self._2NewContactEmail)
+        Dialog.setTabOrder(self._2NewContactEmail, self._3NewContactPhoneNumber)
+        Dialog.setTabOrder(self._3NewContactPhoneNumber, self._4NewContactEmergencyContactName)
+        Dialog.setTabOrder(self._4NewContactEmergencyContactName, self._5NewContactEmergencyContactPhoneNumber)
+        Dialog.setTabOrder(self._5NewContactEmergencyContactPhoneNumber, self.AddContact)
+        Dialog.setTabOrder(self.AddContact, self.ResetContact)
+        Dialog.setTabOrder(self.ResetContact, self.scrollArea)
+        Dialog.setTabOrder(self.scrollArea, self.pushButton)
+        Dialog.setTabOrder(self.pushButton, self.scrollArea_2)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate

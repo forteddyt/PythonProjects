@@ -593,6 +593,22 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>_0NewContactName</tabstop>
+  <tabstop>_1NewContactAddress</tabstop>
+  <tabstop>_2NewContactEmail_2</tabstop>
+  <tabstop>_2NewContactEmail_3</tabstop>
+  <tabstop>_2NewContactEmail_4</tabstop>
+  <tabstop>_2NewContactEmail</tabstop>
+  <tabstop>_3NewContactPhoneNumber</tabstop>
+  <tabstop>_4NewContactEmergencyContactName</tabstop>
+  <tabstop>_5NewContactEmergencyContactPhoneNumber</tabstop>
+  <tabstop>AddContact</tabstop>
+  <tabstop>ResetContact</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>scrollArea_2</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
