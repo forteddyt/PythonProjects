@@ -304,7 +304,7 @@
              </widget>
             </item>
             <item row="4" column="3">
-             <widget class="QLineEdit" name="_2NewContactEmail">
+             <widget class="QLineEdit" name="NewContactEmail">
               <property name="font">
                <font>
                 <family>Georgia</family>
@@ -374,7 +374,7 @@
              </widget>
             </item>
             <item row="8" column="3">
-             <widget class="QLineEdit" name="_5NewContactEmergencyContactPhoneNumber">
+             <widget class="QLineEdit" name="NewContactEmergencyContactPhoneNumber">
               <property name="font">
                <font>
                 <family>Georgia</family>
@@ -387,7 +387,7 @@
              </widget>
             </item>
             <item row="7" column="3">
-             <widget class="QLineEdit" name="_4NewContactEmergencyContactName">
+             <widget class="QLineEdit" name="NewContactEmergencyContactName">
               <property name="font">
                <font>
                 <family>Georgia</family>
@@ -419,7 +419,7 @@
              </widget>
             </item>
             <item row="5" column="3">
-             <widget class="QLineEdit" name="_3NewContactPhoneNumber">
+             <widget class="QLineEdit" name="NewContactPhoneNumber">
               <property name="font">
                <font>
                 <family>Georgia</family>
@@ -432,7 +432,7 @@
              </widget>
             </item>
             <item row="1" column="3">
-             <widget class="QLineEdit" name="_1NewContactAddress">
+             <widget class="QLineEdit" name="NewContactAddress">
               <property name="font">
                <font>
                 <family>Georgia</family>
@@ -445,7 +445,7 @@
              </widget>
             </item>
             <item row="0" column="3">
-             <widget class="QLineEdit" name="_0NewContactName">
+             <widget class="QLineEdit" name="NewContactName">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -475,7 +475,7 @@
                <enum>QLayout::SetMinimumSize</enum>
               </property>
               <item>
-               <widget class="QLineEdit" name="_2NewContactEmail_2">
+               <widget class="QLineEdit" name="NewContactCity">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -494,7 +494,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="_2NewContactEmail_3">
+               <widget class="QLineEdit" name="NewContactState">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -519,7 +519,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="_2NewContactEmail_4">
+               <widget class="QLineEdit" name="NewContactZipCode">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -553,17 +553,17 @@
             </item>
            </layout>
            <zorder>label</zorder>
-           <zorder>_0NewContactName</zorder>
+           <zorder>NewContactName</zorder>
            <zorder>label_2</zorder>
-           <zorder>_1NewContactAddress</zorder>
+           <zorder>NewContactAddress</zorder>
            <zorder>label_5</zorder>
-           <zorder>_2NewContactEmail</zorder>
+           <zorder>NewContactEmail</zorder>
            <zorder>label_6</zorder>
            <zorder>label_7</zorder>
            <zorder>label_8</zorder>
-           <zorder>_4NewContactEmergencyContactName</zorder>
-           <zorder>_3NewContactPhoneNumber</zorder>
-           <zorder>_5NewContactEmergencyContactPhoneNumber</zorder>
+           <zorder>NewContactEmergencyContactName</zorder>
+           <zorder>NewContactPhoneNumber</zorder>
+           <zorder>NewContactEmergencyContactPhoneNumber</zorder>
            <zorder>label_9</zorder>
            <zorder>horizontalLayoutWidget</zorder>
           </widget>
@@ -594,15 +594,15 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>_0NewContactName</tabstop>
-  <tabstop>_1NewContactAddress</tabstop>
-  <tabstop>_2NewContactEmail_2</tabstop>
-  <tabstop>_2NewContactEmail_3</tabstop>
-  <tabstop>_2NewContactEmail_4</tabstop>
-  <tabstop>_2NewContactEmail</tabstop>
-  <tabstop>_3NewContactPhoneNumber</tabstop>
-  <tabstop>_4NewContactEmergencyContactName</tabstop>
-  <tabstop>_5NewContactEmergencyContactPhoneNumber</tabstop>
+  <tabstop>NewContactName</tabstop>
+  <tabstop>NewContactAddress</tabstop>
+  <tabstop>NewContactCity</tabstop>
+  <tabstop>NewContactState</tabstop>
+  <tabstop>NewContactZipCode</tabstop>
+  <tabstop>NewContactEmail</tabstop>
+  <tabstop>NewContactPhoneNumber</tabstop>
+  <tabstop>NewContactEmergencyContactName</tabstop>
+  <tabstop>NewContactEmergencyContactPhoneNumber</tabstop>
   <tabstop>AddContact</tabstop>
   <tabstop>ResetContact</tabstop>
   <tabstop>scrollArea</tabstop>
