@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
-    <height>572</height>
+    <width>954</width>
+    <height>754</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+      <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -28,8 +28,16 @@
      <property name="minimumSize">
       <size>
        <width>340</width>
-       <height>200</height>
+       <height>250</height>
       </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
      </property>
      <property name="acceptDrops">
       <bool>false</bool>
@@ -61,29 +69,43 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="minimumSize">
            <size>
-            <width>105</width>
+            <width>129</width>
             <height>23</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>172</width>
+            <width>156</width>
             <height>23</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Georgia</family>
+            <pointsize>12</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
           </property>
           <property name="autoFillBackground">
            <bool>false</bool>
           </property>
           <property name="text">
            <string>Remove Selected</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -99,8 +121,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>810</width>
-           <height>257</height>
+           <width>914</width>
+           <height>391</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_4"/>
@@ -113,7 +135,7 @@
    <item row="1" column="0">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -126,9 +148,17 @@
      </property>
      <property name="maximumSize">
       <size>
-       <width>16777215</width>
-       <height>225</height>
+       <width>936</width>
+       <height>270</height>
       </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>MS Sans Serif</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
      </property>
      <property name="autoFillBackground">
       <bool>true</bool>
@@ -160,15 +190,37 @@
         </item>
         <item row="0" column="1">
          <widget class="QPushButton" name="AddContact">
+          <property name="font">
+           <font>
+            <family>Georgia</family>
+            <pointsize>12</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Add</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="QPushButton" name="ResetContact">
+          <property name="font">
+           <font>
+            <family>Georgia</family>
+            <pointsize>12</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Reset</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -189,28 +241,12 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>641</width>
-             <height>198</height>
+             <width>762</width>
+             <height>230</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_8">
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_5">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Email:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="NewContactName"/>
-            </item>
-            <item row="3" column="0">
+            <item row="5" column="0">
              <widget class="QLabel" name="label_6">
               <property name="minimumSize">
                <size>
@@ -218,19 +254,35 @@
                 <height>25</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Phone Number:</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
-             <widget class="QLineEdit" name="NewContactPhoneNumber"/>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLineEdit" name="NewContactEmail"/>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="NewContactAddress"/>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Email:</string>
+              </property>
+             </widget>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_2">
@@ -240,8 +292,27 @@
                 <height>25</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Address:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3">
+             <widget class="QLineEdit" name="_2NewContactEmail">
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="placeholderText">
+               <string>jdoe@email.com</string>
               </property>
              </widget>
             </item>
@@ -253,25 +324,18 @@
                 <height>25</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Name:</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_7">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Emergency Contact Name: </string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0" alignment="Qt::AlignRight">
+            <item row="8" column="0" alignment="Qt::AlignRight">
              <widget class="QLabel" name="label_8">
               <property name="minimumSize">
                <size>
@@ -279,30 +343,229 @@
                 <height>25</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Emergency Contact Phone Number: </string>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
-             <widget class="QLineEdit" name="NewContactEmergencyContactName"/>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_7">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Emergency Contact Name: </string>
+              </property>
+             </widget>
             </item>
-            <item row="5" column="1">
-             <widget class="QLineEdit" name="NewContactEmergencyContactPhoneNumber"/>
+            <item row="8" column="3">
+             <widget class="QLineEdit" name="_5NewContactEmergencyContactPhoneNumber">
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="placeholderText">
+               <string>(987) 654-3210</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="3">
+             <widget class="QLineEdit" name="_4NewContactEmergencyContactName">
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="placeholderText">
+               <string>James Doe</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_9">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>City/State:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="3">
+             <widget class="QLineEdit" name="_3NewContactPhoneNumber">
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="placeholderText">
+               <string>(123) 456-7890</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="_1NewContactAddress">
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="placeholderText">
+               <string>12345 Generic Pl </string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLineEdit" name="_0NewContactName">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <family>Georgia</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>John Doe</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3">
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <property name="sizeConstraint">
+               <enum>QLayout::SetMinimumSize</enum>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="_2NewContactEmail_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Georgia</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="placeholderText">
+                 <string>City</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="_2NewContactEmail_3">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Georgia</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="placeholderText">
+                 <string>ie VA</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="_2NewContactEmail_4">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>175</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Georgia</family>
+                  <pointsize>11</pointsize>
+                 </font>
+                </property>
+                <property name="placeholderText">
+                 <string>Zip Code</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
            <zorder>label</zorder>
-           <zorder>NewContactName</zorder>
+           <zorder>_0NewContactName</zorder>
            <zorder>label_2</zorder>
-           <zorder>NewContactAddress</zorder>
+           <zorder>_1NewContactAddress</zorder>
            <zorder>label_5</zorder>
-           <zorder>NewContactEmail</zorder>
+           <zorder>_2NewContactEmail</zorder>
            <zorder>label_6</zorder>
-           <zorder>NewContactPhoneNumber</zorder>
            <zorder>label_7</zorder>
            <zorder>label_8</zorder>
-           <zorder>NewContactEmergencyContactName</zorder>
-           <zorder>NewContactEmergencyContactPhoneNumber</zorder>
+           <zorder>_4NewContactEmergencyContactName</zorder>
+           <zorder>_3NewContactPhoneNumber</zorder>
+           <zorder>_5NewContactEmergencyContactPhoneNumber</zorder>
+           <zorder>label_9</zorder>
+           <zorder>horizontalLayoutWidget</zorder>
           </widget>
          </widget>
         </item>
