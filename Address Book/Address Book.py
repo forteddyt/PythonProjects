@@ -8,18 +8,26 @@ class MyFirstWidget(Ui_Dialog):
 		self.setupUi(dialog)
 
 		self.AddContact.clicked.connect(self.addNewContact)
+		self.ResetContact.clicked.connect(self.resetNewContact)
 
 	def addNewContact(self):
 		name = self.NewContactName.text()
-		address = self.NewContactName.text()
-		email = self.NewContactName.text()
-		phone_num = self.NewContactName.text()
-		emergency_name = self.NewContactName.text()
-		emergency_phone_num = self.NewContactName.text()
+		address = self.NewContactAddress.text()
+		email = self.NewContactEmail.text()
+		phone_num = self.NewContactPhoneNumber.text()
+		emergency_name = self.NewContactEmergencyContactName.text()
+		emergency_phone_num = self.NewContactEmergencyContactPhoneNumber.text()
 
 		text_file = open("AddressInfo.txt", "a")
 		text_file.write(name + "~,~" + address + "~,~" + email + "~,~" + phone_num + "~,~" + emergency_name + "~,~" + emergency_phone_num + "\n")
 
+	def resetNewContact(self):
+		self.NewContactName.clear()
+		self.NewContactAddress.clear()
+		self.NewContactEmail.clear()
+		self.NewContactEmergencyContactName.clear()
+		self.NewContactPhoneNumber.clear()
+		self.NewContactEmergencyContactPhoneNumber.clear()
 
 
 if __name__ == "__main__":
@@ -29,3 +37,4 @@ if __name__ == "__main__":
 	prog = MyFirstWidget(dialog)
  
 	dialog.show()
+	sys.exit(app.exec_())
