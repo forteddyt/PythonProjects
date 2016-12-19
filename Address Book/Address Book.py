@@ -20,6 +20,7 @@ class MyFirstWidget(Ui_Dialog):
 
 		text_file = open("AddressInfo.txt", "a")
 		text_file.write(name + "~,~" + address + "~,~" + email + "~,~" + phone_num + "~,~" + emergency_name + "~,~" + emergency_phone_num + "\n")
+		self.ResetContact.click()
 
 	def resetNewContact(self):
 		self.NewContactName.clear()
