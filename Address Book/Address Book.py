@@ -7,10 +7,9 @@ class MyFirstWidget(Ui_Dialog):
 		Ui_Dialog.__init__(self)
 		self.setupUi(dialog)
 
-		self.AddContact.clicked.connect(self.addNewContact)
-		self.ResetContact.clicked.connect(self.resetNewContact)
+		self.AddContact.clicked.connect(self.storeNewContact)
 
-	def addNewContact(self):
+	def storeNewContact(self):
 		name = self.NewContactName.text()
 		address = self.NewContactAddress.text()
 		city = self.NewContactCity.text()
@@ -27,18 +26,17 @@ class MyFirstWidget(Ui_Dialog):
 		for element in new_contact_list:
 			text_file.write(element + "~,~")
 		text_file.write("\n")
+		text_file.close()
 		self.ResetContact.click()
 
-	def resetNewContact(self):
-		self.NewContactName.clear()
-		self.NewContactAddress.clear()
-		self.NewContactCity.clear()
-		self.NewContactState.clear()
-		self.NewContactZipCode.clear()
-		self.NewContactEmail.clear()
-		self.NewContactPhoneNumber.clear()
-		self.NewContactEmergencyContactName.clear()
-		self.NewContactEmergencyContactPhoneNumber.clear()
+	def displayStoredContacts(self):
+		text_file = open("AddressInfo.txt", "r")
+		lines = text_file.readlines()
+		for line in lines:
+			data = line.split("~,~")
+			for info in data:
+				print(info)
+		text_file.close()
 
 
 if __name__ == "__main__":
@@ -46,6 +44,7 @@ if __name__ == "__main__":
 	dialog = QtWidgets.QDialog()
  
 	prog = MyFirstWidget(dialog)
+	prog.displayStoredContacts()
  
 	dialog.show()
 	sys.exit(app.exec_())
