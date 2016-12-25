@@ -6,22 +6,28 @@
 try:
 	import praw
 except ImportError as e:
+	# Asks user to install PRAW if they do not have it
 	print ("The Python Reddit API Wrapper (PRAW) package is not currently installed on this machine."
 			+ "\n The PRAW package is needed in order for this script to run.")
-	resp = input("Would you like to install the PRAW package? (Y/N): ")
-	while (resp.upper() != "Y" and resp.upper() != "N"):
-		resp = input("Invalid response.\nWould you like to install the PRAW package? (Y/N): ")
-	if resp.upper() == "Y":
+	resp = input("Would you like to install the PRAW package?\n\t[Y]es or [N]o:")
+	
+	# If invalid reponse is given, continuing asking until a valid response is given
+	while (resp.upper() != "Y" and resp.upper() != "YES"
+		and resp.upper() != "N" and resp.upper() != "NO"):
+		resp = input("Invalid response.\nWould you like to install the PRAW package?\n\t[Y]es or [N]o: ")
+	
+	# Install PRAW with pip if the user allows it, exit the script otherwise
+	if resp.upper() == "Y" or resp.upper() == "YES":
 		import pip
 		pip.main(['install', 'praw'])
 		import praw
 	else:
 		import sys
 		import time
-		print("Unable to run script without appropriate packages.\nEXITING SCRIPT")
+		print("Unable to run script without appropriate packages.\n**EXITING SCRIPT**")
 		sys.stdout.flush()
 		time.sleep(2.25)
-		sys.exit()
+		sys.exit(0)
 
 import datetime
 import os
