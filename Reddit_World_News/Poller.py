@@ -2,7 +2,27 @@
 # Script is ran at approximately 11:59 P.M. EST each day
 # Formatting into a .docx is done elsewhere
 
-import praw
+# Ensures the PRAW package is installed
+try:
+	import praw
+	print("Updating PRAW...")
+	pip3.exe install praw --upgrade
+	print("**Latest PRAW package is on this machine.")
+except ImportError as e:
+	print ("The Python Reddit API Wrapper (PRAW) package is not currently installed on this machine."
+			+ "\n The PRAW package is needed in order for this script to run.")
+	resp = input("Would you like to install the PRAW package? (Y/N)")
+	while (resp != "Y" or resp != "N")
+		resp = input("Invalid response.\nWould you like to install the PRAW package? (Y/N)")
+	if resp == "Y":
+		pip3.exe install praw
+	else:
+		import sys
+		import time
+		print("Unable to run script without appropriate packages.\nEXITING SCRIPT")
+		time.delay(3)
+		sys.exit()
+
 import datetime
 import os
 
