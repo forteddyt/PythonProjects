@@ -5,17 +5,15 @@
 # Ensures the PRAW package is installed
 try:
 	import praw
-	print("Updating PRAW...")
-	pip3.exe install praw --upgrade
-	print("**Latest PRAW package is on this machine.")
 except ImportError as e:
 	print ("The Python Reddit API Wrapper (PRAW) package is not currently installed on this machine."
 			+ "\n The PRAW package is needed in order for this script to run.")
 	resp = input("Would you like to install the PRAW package? (Y/N)")
-	while (resp != "Y" or resp != "N")
+	while (resp != "Y" or resp != "N"):
 		resp = input("Invalid response.\nWould you like to install the PRAW package? (Y/N)")
 	if resp == "Y":
-		pip3.exe install praw
+		import pip
+		pip.main(['install', praw])
 	else:
 		import sys
 		import time
