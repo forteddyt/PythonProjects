@@ -23,6 +23,8 @@ for submission in subreddit_worldnews.top('day', limit = 10):
 
 print('--')
 
+# Search /r/worldnews for articles containing a search_terms term
+# Only searches for articles created in past 24 hours
 for term in search_terms:
 	print("Search results for \"" + term + "\"")
 	for submission in subreddit_worldnews.search(term, 'relevance', 'cloudsearch', 'day'):
