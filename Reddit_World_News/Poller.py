@@ -4,6 +4,10 @@
 
 import praw
 import datetime
+import os
+
+# Obtains the scripts file path
+file_path = os.path.dirname(os.path.realpath(__file__)) + "\\"
 
 # Max amount of posts to collect per day
 num_posts = 10
@@ -27,7 +31,7 @@ print("Obtaining base information...")
 
 # Used to determine the starting point of weekly polling intervals
 # ie. If date in base.txt is 12/20/16 the intervals would start from the 20th
-base_txt = open("base.txt", "r")
+base_txt = open(file_path + "base.txt", "r")
 increment_date = base_txt.readline()
 base_txt.close()
 
@@ -50,7 +54,7 @@ if cur_date == terminate_date:
 
 	print("Creating new cycle...")
 
-	base_txt = open("base.txt", "w")
+	base_txt = open(file_path + "base.txt", "w")
 	base_txt.write(start_date)
 	base_txt.close()
 
@@ -72,7 +76,7 @@ print("Starting general searches...")
 
 # Creates and opens a weekly .txt file 
 weekly_title = "Global Events - " + timeframe + ".txt"
-weekly_draft = open(weekly_title, "a")
+weekly_draft = open(file_path + weekly_title, "a")
 
 index = 1
 
@@ -94,7 +98,7 @@ topic_index = 1
 # Creates and opens a weekly, topic-specific .txt file
 # Topic-specific refers to the topics in the search_terms dictionary
 topic_title = "Topic Specific Events - " + timeframe + ".txt"
-topic_draft = open(topic_title, "a")
+topic_draft = open(file_path + topic_title, "a")
 
 # Search /r/worldnews for articles containing a search_terms term
 # Only searches for articles created in past 24 hours
