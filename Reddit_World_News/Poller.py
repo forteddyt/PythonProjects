@@ -31,9 +31,29 @@ print("Obtaining base information...")
 
 # Used to determine the starting point of weekly polling intervals
 # ie. If date in base.txt is 12/20/16 the intervals would start from the 20th
-base_txt = open(file_path + "base.txt", "r")
+try:
+	base_txt = open(file_path + "base.txt", "r")
+except Exception as e:
+	print("No base.txt found, creating...")
+	base_txt = open(file_path + "base.txt", "w")
+	base_txt.close()
+	base_txt = open(file_path + "base.txt", "r")
+	print("**base.txt created.")
 increment_date = base_txt.readline()
 base_txt.close()
+
+# Stores current date as MM/DD/YY
+cur_date = datetime.datetime.strptime(datetime.date.today().strftime("%m/%d/%y"), "%m/%d/%y")
+
+# Determines if there is data in the base.txt file
+# Writes to file and sets current date (DD/MM/YY format) as increment_date 
+if increment_date == "":
+	print("No initial date found, setting '" + cur_date.strftime('%x') + "' as initial date...")
+	increment_date = str(cur_date.strftime('%x'))
+	base_txt = open(file_path + "base.txt", "a")
+	base_txt.write(cur_date.strftime('%x'))
+	base_txt.close()
+	print("**Initial date is now set.")
 
 print("**Base information obtained.")
 
@@ -42,7 +62,6 @@ start_date = datetime.datetime.strptime(increment_date, "%m/%d/%y")
 end_date = start_date + datetime.timedelta(days=6)
 
 # Terminal date is a day after the end date
-cur_date = datetime.datetime.strptime(datetime.date.today().strftime("%m/%d/%y"), "%m/%d/%y")
 terminate_date = end_date + datetime.timedelta(days=1)
 
 print("Checking new date cycle...")
