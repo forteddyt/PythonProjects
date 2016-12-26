@@ -127,7 +127,7 @@ def pollReddit():
 	printFlush("Starting general searches...")
 
 	# Creates and opens a weekly .txt file 
-	weekly_title = "Global Events - " + timeframe + ".txt"
+	weekly_title = "Global Events - " + timeframe + "RAW.txt"
 	weekly_draft = open(file_path + weekly_title, "a")
 
 	index = 1
@@ -150,7 +150,7 @@ def pollReddit():
 
 	# Creates and opens a weekly, topic-specific .txt file
 	# Topic-specific refers to the topics in the search_terms dictionary
-	topic_title = "Topic Specific Events - " + timeframe + ".txt"
+	topic_title = "Topic Specific Events - " + timeframe + "RAW.txt"
 	topic_draft = open(file_path + topic_title, "a")
 
 	# Search /r/worldnews for articles containing a search_terms term
