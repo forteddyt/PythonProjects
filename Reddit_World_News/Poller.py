@@ -118,8 +118,8 @@ def pollReddit():
 
 
 	# Creates a string representation of the dates in MM.DD.YY format
-	str_start_date = str(start_date.month) + "." + str(start_date.day) +"." + str(start_date.year)
-	str_end_date = str(end_date.month) + "." + str(end_date.day) + "." + str(end_date.year)
+	str_start_date = str(start_date.strftime("%m.%d.%y"))
+	str_end_date = str(end_date.strftime("%m.%d.%y"))
 
 	# Creates a string from the start to the end date
 	timeframe = str_start_date + " to " + str_end_date
