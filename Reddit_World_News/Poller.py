@@ -42,12 +42,10 @@ def pollReddit():
 	import os
 	import praw
 
-	# Obtains the scripts file path
-	file_path = os.path.dirname(os.path.realpath(__file__)) + "\\"
-
-	# Max amount of posts to collect per day
-	max_num_posts = 10
-
+	file_path = os.path.dirname(os.path.realpath(__file__)) + "\\" # Obtains the scripts file path
+	max_num_posts = 10 # Max amount of posts to collect per day
+	search_terms = {"Saudi", "Arabia"} # Defines a dictionary of search terms to search for. Not case-sensitive
+	
 	printFlush("Starting script...")
 
 	# Obtains a Reddit instance
@@ -59,10 +57,7 @@ def pollReddit():
 
 	# Obtains a Subreddit instance of /r/worldnews
 	subreddit_worldnews = reddit.subreddit('worldnews')
-
-	# Defines a dictionary of search terms to search for. Not case-sensitive
-	search_terms = {"Saudi Arabia"}
-
+	
 	printFlush("Obtaining base information...")
 
 	# Used to determine the starting point of weekly polling intervals
