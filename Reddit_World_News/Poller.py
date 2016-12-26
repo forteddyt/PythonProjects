@@ -42,10 +42,11 @@ def pollReddit():
 	import datetime
 	import os
 	import praw
+	import time
 
 	file_path = os.path.dirname(os.path.realpath(__file__)) + "\\" # Obtains the scripts file path
 	max_num_posts = 10 # Max amount of posts to collect per day
-	search_terms = {"Saudi", "Arabia"} # Defines a dictionary of search terms to search for. Not case-sensitive
+	search_terms = {"Saudi", "Arabia", "Shooting"} # Defines a dictionary of search terms to search for. Not case-sensitive
 	
 	printFlush("Starting script...")
 
@@ -78,7 +79,7 @@ def pollReddit():
 	cur_date = datetime.datetime.strptime(datetime.date.today().strftime("%m/%d/%y"), "%m/%d/%y")
 
 	# Determines if there is data in the base.txt file
-	# Writes to file and sets current date (DD/MM/YY format) as increment_date 
+	# Writes to file and sets current date (MM/DD/YY format) as increment_date 
 	if increment_date == "":
 		printFlush("No initial date found, setting '" + cur_date.strftime('%x') + "' as initial date...")
 		increment_date = str(cur_date.strftime('%x'))
@@ -135,7 +136,7 @@ def pollReddit():
 	for submission in subreddit_worldnews.top('day', limit = max_num_posts):
 		weekly_draft.write(submission.id + "\n")
 		weekly_draft.write(submission.title + "\n")
-		weekly_draft.write(submission.url + "\n\n\n")
+		weekly_draft.write(submission.url + "\n\n")
 		printFlush(str(index) + " written to file...")
 		index += 1
 
@@ -159,9 +160,10 @@ def pollReddit():
 		for submission in subreddit_worldnews.search(term, 'relevance', 'cloudsearch', 'day'):
 			topic_draft.write(submission.id + "\n")
 			topic_draft.write(submission.title + "\n")
-			topic_draft.write(submission.url + "\n\n\n")
+			topic_draft.write(submission.url + "\n\n")
 			printFlush("Topic " + str(topic_index) + ", index " + str(index) + " writtin to file...")
 			index += 1
+		topic_draft.write("\n")
 		topic_index += 1
 		index = 1
 
@@ -169,6 +171,8 @@ def pollReddit():
 	printFlush("**Topic-specific searches complete.")
 
 	printFlush("**Script complete.")
+
+	time.sleep(1.5)
 
 try:
 	pollReddit()
