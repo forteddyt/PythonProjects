@@ -137,6 +137,7 @@ def pollReddit():
 
 	# Obtains a Submission instance from a specified Subreddit category
 	for submission in subreddit_worldnews.top('day', limit = max_num_posts):
+		weekly_draft.write(submission.id + "\n")
 		weekly_draft.write(submission.title + "\n")
 		weekly_draft.write(submission.url + "\n\n")
 		printFlush(str(index) + " written to file...")
@@ -160,6 +161,7 @@ def pollReddit():
 	for term in search_terms:
 		topic_draft.write("Search results for \"" + term + "\" - " + str(cur_date) + "\n")
 		for submission in subreddit_worldnews.search(term, 'relevance', 'cloudsearch', 'day'):
+			topic_draft.write(submission.id + "\n")
 			topic_draft.write(submission.title + "\n")
 			topic_draft.write(submission.url + "\n\n")
 			printFlush("Topic " + str(topic_index) + ", index " + str(index) + " writtin to file...")
