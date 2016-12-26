@@ -45,9 +45,38 @@ def renameProcedure():
 #	true_txt.close()
 	printFlush("**Blank templates created.")
 
+	name_set = [global_events_f, topic_events_f]
+	return name_set
+
+def prospect(global_name, specific_name):
+	id_list = []
+	id_set = set([])
+	dirt = open(global_name + "COPY.txt", "r")
+	dish = open(global_name + ".txt", "a")
+
+	counter = 0
+	add_post = False
+	for line in dirt.readlines():
+		if counter % 4 == 0:
+			add_post = False
+			id_set.add(line)
+
+		if (counter % 4 == 0 and len(id_list) != len(id_set)):
+			id_list.append(line)
+			add_post = True
+
+		if (add_post == True and counter % 4 != 0):
+			dish.write(line)
+
+		counter += 1
+
+	dirt.close()
+	dish.close()
+
 
 try:
-	renameProcedure()
+	name_set = renameProcedure()
+	prospect(name_set[0], name_set[1])
 except SystemError as e:
 	printFlush("Closing...")
 	time.delay(1.5)
