@@ -1,6 +1,6 @@
 # PRAW - https://praw.readthedocs.io/en/latest/index.html
 # Script is ran at approximately 11:59 P.M. and 11:59 A.M. EST each day
-# Removal of duplicates done elsewhere
+# Removal of duplicates done by the Sifter.py
 # Formatting into a .docx is done elsewhere
 
 import sys
