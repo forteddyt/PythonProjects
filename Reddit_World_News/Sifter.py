@@ -48,7 +48,7 @@ def renameProcedure():
 	name_set = [global_events_f, topic_events_f]
 	return name_set
 
-def prospect(global_name, specific_name):
+def pan(global_name, specific_name):
 	id_list = []
 	id_set = set([])
 	dirt = open(global_name + "COPY.txt", "r")
@@ -73,10 +73,14 @@ def prospect(global_name, specific_name):
 	dirt.close()
 	dish.close()
 
+def dump(global_name, specific_name):
+	os.remove(global_name + "COPY.txt")
+#	os.remove(specific_name + "COPY.txt")
 
 try:
 	name_set = renameProcedure()
-	prospect(name_set[0], name_set[1])
+	pan(name_set[0], name_set[1])
+	dump(name_set[0], name_set[1])
 except SystemError as e:
 	printFlush("Closing...")
 	time.delay(1.5)
