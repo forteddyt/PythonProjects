@@ -48,7 +48,7 @@ def pollReddit():
 	max_num_posts = 10 # Max amount of posts to collect per day
 	search_terms = {"Saudi", "Arabia", "Shooting"} # Defines a dictionary of search terms to search for. Not case-sensitive
 	
-	printFlush("Starting script...")
+	printFlush("Starting Poller.py script...")
 
 	# Obtains a Reddit instance
 	# client_id and client_secret are reddit user's application's credentials
