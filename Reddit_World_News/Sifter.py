@@ -63,10 +63,10 @@ def renameProcedure():
 	name_set = [global_events_f, topic_events_f]
 	return name_set
 
-# 'Pan's the Global Events and Topic Specific Events files
-# Only copys over unique posts from the COPY files to the orginal files
-# global_name and specific_name are the file paths to the original files
-def pan(global_name, specific_name):
+# 'Pan's the Global Events file
+# Only copys over unique posts from the COPY file to the orginal file
+# global_name is the file path to the original Global Events file
+def panGlobal(global_name):
 	id_list_len = 0
 	id_set = set([])
 	dirt = open(global_name + "COPY.txt", "r")
@@ -98,7 +98,13 @@ def pan(global_name, specific_name):
 	dirt.close()
 	dish.close()
 
+# 'Pan's the Specific Events file
+# Only copys over unique posts from the COPY file to the orginal file
+# specific_name is the file path to the original Specific Events file
+def panSpecific(specific_name):
+	pass
 #	 NEED TO IMPLEMENT THE TOPIC SPECIFIC EVENTS PANNING!
+
 
 # Deletes both the Global Events COPY and Topic Specific Events COPY files
 # global_name and specific_name are the file paths to the original files
@@ -107,20 +113,27 @@ def dump(global_name, specific_name):
 	os.remove(global_name + "COPY.txt")
 	printFlush("**'Global' COPY dumped.")
 
-#	printFlush("Dumping specific COPY...")
-#	os.remove(specific_name + "COPY.txt")
-#	printFlush("**Specific COPY dumped.")
+	printFlush("Dumping specific COPY...")
+	os.remove(specific_name + "COPY.txt")
+	printFlush("**Specific COPY dumped.")
 
 try:
 	printFlush("Starting Sifter.py script...")
 
-	name_set = renameProcedure()
-	#pan(name_set[0], name_set[1])
-	#dump(name_set[0], name_set[1])
+#	name_set = renameProcedure()
+#	panGlobal(name_set[0])
+#	panSpecific(name_set[1])
+#	dump(name_set[0], name_set[1])
 
 	printFlush("**Script complete.")
 
 	time.sleep(1.5)
+
+	temp = {'Arabia' : [1, 2, 3], 'Saudi' : [1, 3, 4]}
+	print(temp['Arabia'])
+	print(temp['School Shooting'])
+	
+
 except SystemError as e:
 	printFlush("**EXITING SCRIPT**")
 	time.delay(1.5)
