@@ -102,8 +102,69 @@ def panGlobal(global_name):
 # Only copys over unique posts from the COPY file to the orginal file
 # specific_name is the file path to the original Specific Events file
 def panSpecific(specific_name):
-	pass
+	printFlush("PAN SPECIFIFC")
+	events_dict = {}
+	with open(specific_name + "COPY.txt", "r") as dirt:
+		counter = 4
+		found_topic = False
+		dirt_lines = dirt.readlines()
+
+		for i, line in enumerate(dirt_lines):
+			if (found_topic == False and dirt_lines[i].find("Search results for \"") != -1):
+				found_topic = True
+				counter = 4
+				key = dirt_lines[i].split("\"")[1]
+				if not events_dict.__contains__(key):
+					events_dict.__setitem__(key, set([]))
+			elif (found_topic == True):
+				if (counter % 4 == 0 and dirt_lines[i] != "\n"):
+					event = TopicEvent(dirt_lines[i], dirt_lines[i + 1], dirt_lines[i + 2])
+					event_list = events_dict.get(key)
+					event_list.add(event)
+					events_dict.__setitem__(key, event_list)
+					counter = 4
+				elif counter % 4 == 0:
+					found_topic = False
+				counter -= 1
+				
+
+
+	for key in events_dict.keys():
+		printFlush("KEY : " + str(key) + " --- ")
+		printFlush(events_dict[key])
+		printFlush("\n")
+
+	dish = open(specific_name + ".txt", "w")
+	
+
+	dish.close()	
+
 #	 NEED TO IMPLEMENT THE TOPIC SPECIFIC EVENTS PANNING!
+
+class TopicEvent:
+	def __init__(self, ID, title, url):
+		self.id = ID
+		self.title = title
+		self.url = url
+	# Determines if this TopicEvent is equal to another object.
+	# Is equal if both IDs are the same
+	def __eq__(self, other):
+		if isinstance(other, TopicEvent):
+			return self.id == other.id
+		else:
+			return False
+	# Not NEEDED to function correctly, but added because StackOverFlow had it
+	def __ne__(self, other):
+		return not self.__eq__(other)
+	# Hashes the ID, since the ID is what determines uniqueness
+	def __hash__(self):
+		return hash(self.id)
+	# Returns a String representation of this TopicEvent
+	def __str__(self):
+		return "[ID: " + str(self.id) + ", Title: " + str(self.title) + ", URL: " + str(self.url) + "]"
+	# Returns __str__() representation
+	def __repr__(self):
+		return self.__str__()
 
 
 # Deletes both the Global Events COPY and Topic Specific Events COPY files
@@ -123,15 +184,12 @@ try:
 #	name_set = renameProcedure()
 #	panGlobal(name_set[0])
 #	panSpecific(name_set[1])
+	panSpecific('Topic Specific Events - 12.15.16 to 12.21.16')
 #	dump(name_set[0], name_set[1])
 
 	printFlush("**Script complete.")
 
 	time.sleep(1.5)
-
-	temp = {'Arabia' : [1, 2, 3], 'Saudi' : [1, 3, 4]}
-	print(temp['Arabia'])
-	print(temp['School Shooting'])
 	
 
 except SystemError as e:
