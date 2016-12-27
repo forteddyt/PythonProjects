@@ -164,9 +164,6 @@ def panSpecific(specific_name):
 
 	printFlush("**Panning complete. 'Specific' dish filled with gold!")
 
-
-#	 NEED TO IMPLEMENT THE TOPIC SPECIFIC EVENTS PANNING!
-
 class TopicEvent:
 	def __init__(self, ID, title, url):
 		self.id = ID
@@ -214,10 +211,7 @@ try:
 #	dump(name_set[0], name_set[1])
 
 	printFlush("**Script complete.")
-
-	time.sleep(1.5)
-	
-
 except SystemError as e:
 	printFlush("**EXITING SCRIPT**")
+finally:
 	time.delay(1.5)
