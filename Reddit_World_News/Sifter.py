@@ -204,14 +204,13 @@ def dump(global_name, specific_name):
 try:
 	printFlush("Starting Sifter.py script...")
 
-#	name_set = renameProcedure()
-#	panGlobal(name_set[0])
-#	panSpecific(name_set[1])
-	panSpecific('Topic Specific Events - 12.15.16 to 12.21.16')
-#	dump(name_set[0], name_set[1])
+	name_set = renameProcedure()
+	panGlobal(name_set[0])
+	panSpecific(name_set[1])
+	dump(name_set[0], name_set[1])
 
 	printFlush("**Script complete.")
 except SystemError as e:
 	printFlush("**EXITING SCRIPT**")
 finally:
-	time.delay(1.5)
+	time.sleep(1.5)
