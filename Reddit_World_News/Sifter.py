@@ -210,6 +210,9 @@ try:
 	dump(name_set[0], name_set[1])
 
 	printFlush("**Script complete.")
+except FileNotFoundError as e:
+	printFlush("A file was not found!!")
+	printFlush("** EXITING SCRIPT**")
 except SystemError as e:
 	printFlush("**EXITING SCRIPT**")
 finally:
