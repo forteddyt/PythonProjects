@@ -104,7 +104,7 @@ def panGlobal(global_name):
 def panSpecific(specific_name):
 	events_dict = {}
 	
-	printFlush("Panning the 'Specific' dirt into the 'Global' dish...")
+	printFlush("Panning the 'Specific' dirt into the 'Specific' dish...")
 	with open(specific_name + "COPY.txt", "r") as dirt:
 		counter = 4
 		found_topic = False
@@ -137,18 +137,15 @@ def panSpecific(specific_name):
 				elif counter % 4 == 0:
 					found_topic = False
 				counter -= 1
-				
-
-
-	for key in events_dict.keys():
-		printFlush("KEY : " + str(key) + " --- ")
-		printFlush(events_dict[key])
-		printFlush("\n")
-
-	dish = open(specific_name + ".txt", "w")
 	
 
-	dish.close()
+	with open(specific_name + ".txt", "w") as dish:
+		for key in sorted(events_dict.keys()):
+			dish.write("--Search results for \"" + str(key) + "\"--\n")
+			for event in events_dict.get(key):
+				dish.write(event.title.rstrip() + " ")
+				dish.write(event.url + "\n")
+			dish.write("\n")
 
 	printFlush("**Panning complete. 'Specific' dish filled with gold!")
 
@@ -175,7 +172,7 @@ class TopicEvent:
 		return hash(self.id)
 	# Returns a String representation of this TopicEvent
 	def __str__(self):
-		return "[ID: " + str(self.id) + ", Title: " + str(self.title) + ", URL: " + str(self.url) + "]"
+		return str(self.id) + str(self.title) + str(self.url)
 	# Returns __str__() representation
 	def __repr__(self):
 		return self.__str__()
