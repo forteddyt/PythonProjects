@@ -140,8 +140,13 @@ def panSpecific(specific_name):
 	
 
 	with open(specific_name + ".txt", "w") as dish:
+		# Accesses every key (ie. Topic) in the dictionary 
+		# and writes it to the dish
 		for key in sorted(events_dict.keys()):
 			dish.write("--Search results for \"" + str(key) + "\"--\n")
+			
+			# Accesses every event (ie. title/url pair) in that key's mapped set 
+			# and writes it to the dish
 			for event in events_dict.get(key):
 				dish.write(event.title.rstrip() + " ")
 				dish.write(event.url + "\n")
