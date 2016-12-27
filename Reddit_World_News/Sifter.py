@@ -106,6 +106,8 @@ def panSpecific(specific_name):
 	
 	printFlush("Panning the 'Specific' dirt into the 'Specific' dish...")
 	with open(specific_name + "COPY.txt", "r") as dirt:
+		tracker = 0 # Used solely for printing progress
+
 		counter = 4
 		found_topic = False
 		dirt_lines = dirt.readlines()
@@ -118,6 +120,8 @@ def panSpecific(specific_name):
 				counter = 4
 				key = dirt_lines[i].split("\"")[1]
 				
+				printFlush("Starting examination of topic instance '" + str(key) +"'...")
+				
 				# If this Specific Topic doesn't exist, add it and map it to an empty set
 				if not events_dict.__contains__(key):
 					events_dict.__setitem__(key, set([]))
@@ -127,6 +131,9 @@ def panSpecific(specific_name):
 			elif (found_topic == True):
 				# If the line is NOT a line containing the title, url, or blank space
 				if (counter % 4 == 0 and dirt_lines[i] != "\n"):
+					tracker += 1
+					printFlush("Examining event #" + str(tracker) + "..." )
+
 					event = TopicEvent(dirt_lines[i], dirt_lines[i + 1], dirt_lines[i + 2])
 					event_list = events_dict.get(key)
 					event_list.add(event)
@@ -135,7 +142,10 @@ def panSpecific(specific_name):
 				# If the line is a blank after a set of 'ID, title, url, blank' set to search
 				# for new topic
 				elif counter % 4 == 0:
+					printFlush("**Topic instance '" + str(key) +"' finished with " + str(tracker) + " topic(s) examined.")
+
 					found_topic = False
+					tracker = 0
 				counter -= 1
 	
 
