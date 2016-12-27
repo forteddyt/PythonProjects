@@ -102,27 +102,38 @@ def panGlobal(global_name):
 # Only copys over unique posts from the COPY file to the orginal file
 # specific_name is the file path to the original Specific Events file
 def panSpecific(specific_name):
-	printFlush("PAN SPECIFIFC")
 	events_dict = {}
+	
+	printFlush("Panning the 'Specific' dirt into the 'Global' dish...")
 	with open(specific_name + "COPY.txt", "r") as dirt:
 		counter = 4
 		found_topic = False
 		dirt_lines = dirt.readlines()
 
 		for i, line in enumerate(dirt_lines):
+			# If we haven't found a Specific Topic to add events to and this line contains
+			# the correct format for such a topic 
 			if (found_topic == False and dirt_lines[i].find("Search results for \"") != -1):
 				found_topic = True
 				counter = 4
 				key = dirt_lines[i].split("\"")[1]
+				
+				# If this Specific Topic doesn't exist, add it and map it to an empty set
 				if not events_dict.__contains__(key):
 					events_dict.__setitem__(key, set([]))
+			
+			# If a topic is found, gather the appropriate data to construct a TopicEvent
+			# and add it to it's appropriate Specific Topic Key
 			elif (found_topic == True):
+				# If the line is NOT a line containing the title, url, or blank space
 				if (counter % 4 == 0 and dirt_lines[i] != "\n"):
 					event = TopicEvent(dirt_lines[i], dirt_lines[i + 1], dirt_lines[i + 2])
 					event_list = events_dict.get(key)
 					event_list.add(event)
 					events_dict.__setitem__(key, event_list)
 					counter = 4
+				# If the line is a blank after a set of 'ID, title, url, blank' set to search
+				# for new topic
 				elif counter % 4 == 0:
 					found_topic = False
 				counter -= 1
@@ -137,7 +148,10 @@ def panSpecific(specific_name):
 	dish = open(specific_name + ".txt", "w")
 	
 
-	dish.close()	
+	dish.close()
+
+	printFlush("**Panning complete. 'Specific' dish filled with gold!")
+
 
 #	 NEED TO IMPLEMENT THE TOPIC SPECIFIC EVENTS PANNING!
 
