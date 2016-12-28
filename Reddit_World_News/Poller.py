@@ -45,6 +45,9 @@ def getCurDate():
 
 	return datetime.datetime.strptime(datetime.date.today().strftime("%m/%d/%y"), "%m/%d/%y")
 
+# Ensures that there are two lines in base.txt without erasing it's data
+# Fills empty lines with their appropriate data
+# ie. Line one should contain a "MM/DD/YY" and line two should contain a search list
 def checkBaseText():
 	printFlush("Searching for base.txt file...")
 
@@ -68,7 +71,8 @@ def checkBaseText():
 
 		base_txt.close()
 
-		# Determines if there is a start date
+		# If there is no data for the Date data line
+		# Erases the file, re-creates it, and adds the current date to it
 		if first_line.rstrip() == "":
 			base_txt = open(file_path + "base.txt" , "w")
 			
@@ -82,15 +86,17 @@ def checkBaseText():
 
 		base_txt = open(file_path + "base.txt", "w")
 		base_txt.write(first_line.rstrip() + "\n")
-		# Determines if there is a search term list
+		# If there was no preset search list, add an empty one
 		if second_line.rstrip() == "":
 			printFlush("No search terms found. Use the Definer.py script to define search terms.")
 			base_txt.write("[]\n")
+		# Otherwise write the original search list into the file
 		else:
 			base_txt.write(second_line.rstrip() + "\n")
 		base_txt.close()
 
-		# Writes to file and sets current date (MM/DD/YY format) as increment_date 
+	# If there is no base.txt file, create it and
+	# fill it with the current date data and empty search list data
 	except FileNotFoundError as e:
 		printFlush("No base.txt file found, creating file...")
 		base_txt = open(file_path + "base.txt", "w")
