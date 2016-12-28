@@ -20,7 +20,7 @@ def renameProcedure():
 	# Uses base.txt to determine the polling interval
 	printFlush("Obtaining base time...")
 	base_txt = open(file_path + "base.txt", "r")
-	base_date = datetime.datetime.strptime(base_txt.readline(), "%m/%d/%y")
+	base_date = datetime.datetime.strptime(base_txt.readline().strip(), "%m/%d/%y")
 	base_txt.close()
 	printFlush("**Base time obtained.")
 
