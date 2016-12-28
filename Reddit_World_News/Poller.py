@@ -126,7 +126,7 @@ def getSearchTerms():
 	base_txt.close()
 
 	# If base.txt has a '[]' search list, return an empty dict
-	if search_list == "[]":
+	if search_list.strip() == "[]":
 		return terms
 
 	# Naming convention dicates:
