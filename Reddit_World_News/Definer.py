@@ -5,7 +5,9 @@
 
 import os
 import sys
+from Poller import getSearchTerms
 file_path = os.path.dirname(os.path.realpath(__file__)) + "\\" # Obtains the scripts file path
+search_terms = getSearchTerms()
 polling = True
 
 # A simple print with a system flush afterwards
@@ -21,7 +23,7 @@ def poll_user():
 
 def definerHelp(function = None, *args):
 	if function == None:
-		commands = call_list.keys()
+		commands = sorted(call_list.keys())
 		printFlush("Available commands: ")
 		for item in commands:
 			printFlush(item)
