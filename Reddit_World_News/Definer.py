@@ -38,15 +38,34 @@ def close(*arg):
 
 call_list = {'close' : close,'help' : definerHelp}
 call_definitions = {'close' : "Closes Definer without saving search list progress.",
-					'help' : "This function provides a helpful message for functions in Definer. Calling help <function> prints help for Definer object '<function>'"}
-def cleanCallDefinitions():
-	pass
+					'help' : "This function provides a helpful message for functions in Definer. Calling help <function> prints help for Definer object '<function>'."}
+def formatCallDefinitions():
+	char_limit = 35 # Soft max number of characters per line of function definitions
 
+	for key in call_definitions:
+		counter = 0
+		line = call_definitions.get(key)
+		tempLine = ""
+		for char in call_definitions.get(key):
+			if counter > char_limit and char == " ":
+				temp = line[:counter].strip() + "\n"
+				tempLine += temp
+				line = line[counter:]
+				counter = 0
+			counter += 1
+		if tempLine == "":
+			tempLine = call_definitions.get(key)
+		else:
+			tempLine += line.strip()
+		call_definitions.__setitem__(key, tempLine)
+
+
+formatCallDefinitions()
 while polling == True:
 	try:
 		item = poll_user()
 		command = item[0]
-		args = item[1::]
+		args = item[1:]
 		call_list.get(command)(*args)
 	except TypeError as e:
 		print(e)
