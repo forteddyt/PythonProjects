@@ -46,7 +46,7 @@ def pollReddit():
 
 	file_path = os.path.dirname(os.path.realpath(__file__)) + "\\" # Obtains the scripts file path
 	max_num_posts = 10 # Max amount of posts to collect per day
-	search_terms = {"Saudi", "Arabia", "Shooting"} # Defines a dictionary of search terms to search for. Not case-sensitive
+	search_terms = {"Saudi Arabai": ["Saudi", "Arabia"], "School Shooting": ["Shooting"]} # Defines a dictionary of search terms to search for. Not case-sensitive
 	
 	printFlush("Starting Poller.py script...")
 
@@ -155,17 +155,18 @@ def pollReddit():
 
 	# Search /r/worldnews for articles containing a search_terms term
 	# Only searches for articles created in past 24 hours
-	for term in search_terms:
-		topic_draft.write("Search results for \"" + term + "\" - " + str(cur_date) + "\n")
-		for submission in subreddit_worldnews.search(term, 'relevance', 'cloudsearch', 'day'):
-			topic_draft.write(submission.id + "\n")
-			topic_draft.write(submission.title + "\n")
-			topic_draft.write(submission.url + "\n\n")
-			printFlush("Topic " + str(topic_index) + ", index " + str(index) + " writtin to file...")
-			index += 1
+	for key in search_terms:
+		topic_draft.write("Search results for \"" + key + "\" search set - " + str(cur_date) + "\n")
+		for term in search_terms.get(key):
+			for submission in subreddit_worldnews.search(term, 'relevance', 'cloudsearch', 'day'):
+				topic_draft.write(submission.id + "\n")
+				topic_draft.write(submission.title + "\n")
+				topic_draft.write(submission.url + "\n\n")
+				printFlush("Topic " + str(topic_index) + ", index " + str(index) + " writtin to file...")
+				index += 1
+			topic_index += 1
+			index = 1
 		topic_draft.write("\n")
-		topic_index += 1
-		index = 1
 
 	topic_draft.close()
 	printFlush("**Topic-specific searches complete.")
