@@ -266,9 +266,12 @@ def pollReddit():
 	printFlush("**Script complete.")
 
 	time.sleep(1.5)
+def main():
+	try:
+		checkBaseText()
+		pollReddit()
+	except SystemExit as e:
+		printFlush("**EXITING SCRIPT**")
 
-try:
-	checkBaseText()
-	pollReddit()
-except SystemExit as e:
-	printFlush("**EXITING SCRIPT**")
+if __name__ == "__main__":
+	main()
