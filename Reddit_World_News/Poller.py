@@ -214,7 +214,7 @@ def pollReddit():
 		weekly_draft.write(submission.id + "\n")
 		weekly_draft.write(submission.title + "\n")
 		weekly_draft.write(submission.url + "\n\n")
-		printFlush(str(index) + " written to file...")
+		printFlush("Post #" + str(index) + " written to file...")
 		index += 1
 
 	weekly_draft.close()
@@ -239,7 +239,7 @@ def pollReddit():
 				topic_draft.write(submission.id + "\n")
 				topic_draft.write(submission.title + "\n")
 				topic_draft.write(submission.url + "\n\n")
-				printFlush("Topic " + str(topic_index) + ", post #" + str(index) + " writting to file...")
+				printFlush("Topic " + str(topic_index) + ", post #" + str(index) + " written to file...")
 				index += 1
 		topic_index += 1
 		index = 1
