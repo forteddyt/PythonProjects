@@ -65,7 +65,7 @@ def checkBaseText():
 			second_line = lines[1]
 		else:
 			second_line = ""
-		
+
 		base_txt.close()
 
 		# Determines if there is a start date
@@ -110,8 +110,28 @@ def checkBaseText():
 # Not case-sensitive
 def getSearchTerms():
 	base_txt = open(file_path + "base.txt", "r")
+	
+	terms = {}
+
+	base_txt.readline()
+	search_list = base_txt.readline()
+	search_list = search_list.split("-")
+	for item in search_list:
+		item = item.strip()
+		temp = item.split(":")
+		term = temp[0]
+		sub_terms = temp[1].strip()
+		if sub_terms.find(",") != -1:
+			sub_terms = sub_terms.split(",")
+			for i, kraken in enumerate(sub_terms):
+				sub_terms[i] = kraken.strip()
+		else:
+			sub_terms = [sub_terms]
+		terms.__setitem__(term, sub_terms)
 
 	base_txt.close()
+
+	return terms
 
 def pollReddit():
 	checkImports()
@@ -139,7 +159,7 @@ def pollReddit():
 	# Used to determine the starting point of weekly polling intervals
 	# ie. If date in base.txt is 12/20/16 the intervals would start from the 20th
 	base_txt = open(file_path + "base.txt", "r")
-	increment_date = base_txt.readline()
+	increment_date = base_txt.readline().strip()
 	base_txt.close()
 
 	printFlush("**Base information obtained.")
@@ -219,10 +239,10 @@ def pollReddit():
 				topic_draft.write(submission.id + "\n")
 				topic_draft.write(submission.title + "\n")
 				topic_draft.write(submission.url + "\n\n")
-				printFlush("Topic " + str(topic_index) + ", index " + str(index) + " writtin to file...")
+				printFlush("Topic " + str(topic_index) + ", post #" + str(index) + " writting to file...")
 				index += 1
-			topic_index += 1
-			index = 1
+		topic_index += 1
+		index = 1
 		topic_draft.write("\n")
 
 	topic_draft.close()
@@ -234,6 +254,6 @@ def pollReddit():
 
 try:
 	checkBaseText()
-#	pollReddit()
+	pollReddit()
 except SystemExit as e:
 	printFlush("**EXITING SCRIPT**")
