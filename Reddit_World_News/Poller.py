@@ -119,8 +119,19 @@ def getSearchTerms():
 	
 	terms = {}
 
+	# The search list dictionary is on the second line of base.txt
 	base_txt.readline()
 	search_list = base_txt.readline()
+
+	base_txt.close()
+
+	# If base.txt has a '[]' search list, return an empty dict
+	if search_list == "[]":
+		return terms
+
+	# Naming convention dicates:
+	# <search_topic1>: <term1>, <term2>, ..., <term.n> - <search_topic2>: <term1>, <term2>, ..., <term.n> - ...
+	# Mutltiple .strip() to ensure no leading/trailing whitespace
 	search_list = search_list.split("-")
 	for item in search_list:
 		item = item.strip()
@@ -134,8 +145,6 @@ def getSearchTerms():
 		else:
 			sub_terms = [sub_terms]
 		terms.__setitem__(term, sub_terms)
-
-	base_txt.close()
 
 	return terms
 
