@@ -49,44 +49,62 @@ def close(*arg):
 def show(*args):
 	is_short = False
 	is_stored = False
+	key = None
 
 	if len(args) == 0:
 		key = None
 	else:
 		leading = args[0]
 		trailing = args[-1]
-		if leading == trailing and leading in show_dict.values():
-			if len(args) > 1:
+		if leading in show_dict.values():
+			if leading == trailing and len(args) > 1:
 				printFlush(err)
 				return
-			else:
-				key = None
-				if leading == show_dict['stored']:
-					is_stored = True
-				elif leading == show_dict['less']:
-					is_short = True
-		elif leading in show_dict.values():
-			if leading == show_dict['less'] or leading == show_dict['more']:
-				printFlush(err)
-				return
-			elif leading == show_dict['stored']:
-				is_stored = True
-			
-			if trailing not in show_dict.values():
-				key = args[1:]
-			else:
-				key = args[1:-1]
-				if trailing == show_dict['stored'] or trailing == show_dict['running']:
+
+			args = args[1:]
+			if leading == show_dict['less']:
+				is_short = True
+				if len(args) > 0:
 					printFlush(err)
 					return
-				elif trailing == show_dict['less']:
-					is_short = True
+			elif leading == show_dict['more']:
+				if len(args) > 0:
+					printFlush(err)
+					return
+			elif leading == show_dict['stored']:
+				is_stored = True
+
+			if len(args) > 0:
+				trailing = args[-1]
+				if trailing == show_dict['running'] or trailing == show_dict['stored']:
+					printFlush(err)
+					return
+			else:
+				trailing = None
+		if trailing in show_dict.values():
+			args = args[:-1]
+			if trailing == show_dict['less']:
+				is_short = True
+			elif trailing == show_dict['stored']:
+				is_stored = True
+				if len(args) > 0:
+					printFlush(err)
+					return
+			
+		if len(args) > 0:
+			key = ""
+			for word in args:
+				key += word + " "
+			key = key.strip()
+
+
+
+
 
 	if is_stored:
 		cur_list = stored_search_terms
 	else:
 		cur_list = running_search_terms
-
 
 	if key != None:
 		printFlush("Search topic '" + key + "'")
