@@ -14,20 +14,40 @@ def printFlush(string = ''):
 	sys.stdout.flush()
 
 def poll_user():
-	return input(">>")
+	given = input(">>")
+	given = given.strip()
+	given = given.split(" ")
+	return given
 
-def definerHelp():
-	pass
+def definerHelp(function = None, *args):
+	if function == None:
+		commands = call_list.keys()
+		printFlush("Available commands: ")
+		for item in commands:
+			printFlush(item)
+	else:
+		try:
+			print(call_definitions[function])
+		except KeyError as e:
+			print("Function '" + function + "' does not exist")
 
-def close():
+def close(*arg):
 	printFlush("Closing Definer.py")
 	global polling
 	polling = False
 
 call_list = {'close' : close,'help' : definerHelp}
+call_definitions = {'close' : "Closes Definer without saving search list progress.",
+					'help' : "This function provides a helpful message for functions in Definer. Calling help <function> prints help for Definer object '<function>'"}
+def cleanCallDefinitions():
+	pass
+
 while polling == True:
 	try:
-		command = poll_user()
-		call_list.get(command)()
+		item = poll_user()
+		command = item[0]
+		args = item[1::]
+		call_list.get(command)(*args)
 	except TypeError as e:
+		print(e)
 		printFlush(command + " command not found")
