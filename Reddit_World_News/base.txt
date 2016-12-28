@@ -1,1 +1,2 @@
 12/22/16
+{"Saudi Arabai": ["Saudi", "Arabia"], "School Shooting": ["Shooting"]}

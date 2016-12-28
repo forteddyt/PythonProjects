@@ -4,6 +4,9 @@
 # Formatting into a .docx is done elsewhere
 
 import sys
+import os
+
+file_path = os.path.dirname(os.path.realpath(__file__)) + "\\" # Obtains the scripts file path
 
 # A simple print with a system flush afterwards
 def printFlush(string = ''):
@@ -37,16 +40,87 @@ def checkImports():
 			time.sleep(1)
 			sys.exit(0)
 
+def getCurDate():
+	import datetime
+
+	return datetime.datetime.strptime(datetime.date.today().strftime("%m/%d/%y"), "%m/%d/%y")
+
+def checkBaseText():
+	printFlush("Searching for base.txt file...")
+
+	cur_date = getCurDate()
+
+	try:
+		base_txt = open(file_path + "base.txt", "r")
+		
+		printFlush("**base.txt file found, checking contents...")
+		lines = base_txt.readlines()
+
+		if len(lines) > 0:
+			first_line = lines[0]
+		else:
+			first_line = ""
+
+		if len(lines) > 1:
+			second_line = lines[1]
+		else:
+			second_line = ""
+		
+		base_txt.close()
+
+		# Determines if there is a start date
+		if first_line.rstrip() == "":
+			base_txt = open(file_path + "base.txt" , "w")
+			
+			printFlush("No initial date found, setting '" + cur_date.strftime('%x') + "' as initial date...")
+			set_date = cur_date.strftime('%x')
+			base_txt.write(set_date + "\n")
+			first_line = set_date
+			printFlush("**Initial date set.")
+			
+			base_txt.close()
+
+		base_txt = open(file_path + "base.txt", "w")
+		base_txt.write(first_line.rstrip() + "\n")
+		# Determines if there is a search term list
+		if second_line.rstrip() == "":
+			printFlush("No search terms found. Use the Definer.py script to define search terms.")
+			base_txt.write("[]\n")
+		else:
+			base_txt.write(second_line.rstrip() + "\n")
+		base_txt.close()
+
+		# Writes to file and sets current date (MM/DD/YY format) as increment_date 
+	except FileNotFoundError as e:
+		printFlush("No base.txt file found, creating file...")
+		base_txt = open(file_path + "base.txt", "w")
+		printFlush("**base.txt file created.")
+
+		printFlush("No initial date found, setting '" + cur_date.strftime('%x') + "' as initial date...")
+		base_txt.write(cur_date.strftime('%x') + "\n")
+		printFlush("**Initial date set.")
+
+		printFlush("No search terms found. Use the Definer.py script to define search terms.")
+		base_txt.write("[]\n")
+		
+		base_txt.close()
+	printFlush("**base.txt file correctly configured.")
+
+# Defines a dictionary of general search categories mapping to more specific key-words
+# Not case-sensitive
+def getSearchTerms():
+	base_txt = open(file_path + "base.txt", "r")
+
+	base_txt.close()
+
 def pollReddit():
 	checkImports()
 	import datetime
-	import os
 	import praw
 	import time
 
-	file_path = os.path.dirname(os.path.realpath(__file__)) + "\\" # Obtains the scripts file path
 	max_num_posts = 10 # Max amount of posts to collect per day
-	search_terms = {"Saudi Arabai": ["Saudi", "Arabia"], "School Shooting": ["Shooting"]} # Defines a dictionary of search terms to search for. Not case-sensitive
+	search_terms = getSearchTerms()
 	
 	printFlush("Starting Poller.py script...")
 
@@ -64,31 +138,14 @@ def pollReddit():
 
 	# Used to determine the starting point of weekly polling intervals
 	# ie. If date in base.txt is 12/20/16 the intervals would start from the 20th
-	try:
-		base_txt = open(file_path + "base.txt", "r")
-	except Exception as e:
-		printFlush("No base.txt found, creating...")
-		base_txt = open(file_path + "base.txt", "w")
-		base_txt.close()
-		base_txt = open(file_path + "base.txt", "r")
-		printFlush("**base.txt created.")
+	base_txt = open(file_path + "base.txt", "r")
 	increment_date = base_txt.readline()
 	base_txt.close()
 
-	# Stores current date as MM/DD/YY
-	cur_date = datetime.datetime.strptime(datetime.date.today().strftime("%m/%d/%y"), "%m/%d/%y")
-
-	# Determines if there is data in the base.txt file
-	# Writes to file and sets current date (MM/DD/YY format) as increment_date 
-	if increment_date == "":
-		printFlush("No initial date found, setting '" + cur_date.strftime('%x') + "' as initial date...")
-		increment_date = str(cur_date.strftime('%x'))
-		base_txt = open(file_path + "base.txt", "a")
-		base_txt.write(cur_date.strftime('%x'))
-		base_txt.close()
-		printFlush("**Initial date is now set.")
-
 	printFlush("**Base information obtained.")
+
+	# Stores current date as MM/DD/YY
+	cur_date = getCurDate()
 
 	# Creates a start_date and end_date based off base.txt file
 	start_date = datetime.datetime.strptime(increment_date, "%m/%d/%y")
@@ -110,7 +167,7 @@ def pollReddit():
 		base_txt.write(start_date)
 		base_txt.close()
 
-		printFlush("**New cycle create.")
+		printFlush("**New cycle created.")
 
 		end_date = start_date + datetime.timedelta(days=6)
 	else:
@@ -176,6 +233,7 @@ def pollReddit():
 	time.sleep(1.5)
 
 try:
-	pollReddit()
+	checkBaseText()
+#	pollReddit()
 except SystemExit as e:
 	printFlush("**EXITING SCRIPT**")
