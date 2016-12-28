@@ -212,6 +212,7 @@ try:
 	printFlush("**Script complete.")
 except FileNotFoundError as e:
 	printFlush("A file was not found!!")
+	print(e)
 	printFlush("** EXITING SCRIPT**")
 except SystemError as e:
 	printFlush("**EXITING SCRIPT**")
