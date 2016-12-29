@@ -89,7 +89,7 @@ def checkBaseText():
 		# If there was no preset search list, add an empty one
 		if second_line.rstrip() == "":
 			printFlush("No search terms found. Use the Definer.py script to define search terms.")
-			base_txt.write("[]\n")
+			base_txt.write("{}\n")
 		# Otherwise write the original search list into the file
 		else:
 			base_txt.write(second_line.rstrip() + "\n")
@@ -107,7 +107,7 @@ def checkBaseText():
 		printFlush("**Initial date set.")
 
 		printFlush("No search terms found. Use the Definer.py script to define search terms.")
-		base_txt.write("[]\n")
+		base_txt.write("\{\}\n")
 		
 		base_txt.close()
 	printFlush("**base.txt file correctly configured.")
@@ -115,36 +115,22 @@ def checkBaseText():
 # Defines a dictionary of general search categories mapping to more specific key-words
 # Not case-sensitive
 def getSearchTerms():
+	import ast
+
 	base_txt = open(file_path + "base.txt", "r")
 	
 	terms = {}
 
 	# The search list dictionary is on the second line of base.txt
 	base_txt.readline()
-	search_list = base_txt.readline()
+	search_list = base_txt.readline().strip()
 
 	base_txt.close()
 
-	# If base.txt has a '[]' search list, return an empty dict
-	if search_list.strip() == "[]":
-		return terms
-
-	# Naming convention dicates:
-	# <search_topic1>: <term1>, <term2>, ..., <term.n> - <search_topic2>: <term1>, <term2>, ..., <term.n> - ...
-	# Mutltiple .strip() to ensure no leading/trailing whitespace
-	search_list = search_list.split("-")
-	for item in search_list:
-		item = item.strip()
-		temp = item.split(":")
-		term = temp[0]
-		sub_terms = temp[1].strip()
-		if sub_terms.find(",") != -1:
-			sub_terms = sub_terms.split(",")
-			for i, kraken in enumerate(sub_terms):
-				sub_terms[i] = kraken.strip()
-		else:
-			sub_terms = [sub_terms]
-		terms.__setitem__(term, sub_terms)
+	try:
+		terms = ast.literal_eval(search_list)
+	except Exception as e:
+		print(e)
 
 	return terms
 
@@ -189,18 +175,19 @@ def pollReddit():
 	# Terminal date is a day after the end date
 	terminate_date = end_date + datetime.timedelta(days=1)
 
-	printFlush("Checking new date cycle...")
+	printFlush("Checking date cycle...")
 
 	# Determines if the next interval cycle is to begin
 	# Overwrites base.txt with appropriate date
-	if cur_date == terminate_date:
+	if cur_date >= terminate_date:
+		write_date = datetime.datetime.strftime(cur_date, "%m/%d/%y")
 		start_date = cur_date
 
 		printFlush("Creating new cycle...")
 
 		base_txt = open(file_path + "base.txt", "w")
-		base_txt.write(start_date)
-		base_txt.write(search_terms)
+		base_txt.write(write_date + "\n")
+		base_txt.write(str(search_terms) + "\n")
 		base_txt.close()
 
 		printFlush("**New cycle created.")
@@ -275,7 +262,8 @@ def main():
 		printFlush("**EXITING SCRIPT**")
 	except Exception as e:
 		import time
-		printFlush(e)
+		import traceback
+		traceback.print_exc()
 		time.sleep(3)
 
 if __name__ == "__main__":
