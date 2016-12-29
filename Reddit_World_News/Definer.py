@@ -46,9 +46,19 @@ def close(*arg):
 	global polling
 	polling = False
 
+# Sets running search list as stored search list
 def store(*args):
 	stored_search_terms = running_search_terms.copy()
 	printFlush("Running search list stored.")
+
+# Writes stored search list to file
+def update(*args):
+	pass
+
+# Shorthand for store-ing and update-ing
+def save(*args):
+	store()
+	update()
 
 def show(*args):
 	is_short = False
