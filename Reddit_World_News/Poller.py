@@ -274,6 +274,7 @@ def main():
 	except SystemExit as e:
 		printFlush("**EXITING SCRIPT**")
 	except Exception as e:
+		import time
 		printFlush(e)
 		time.sleep(3)
 
