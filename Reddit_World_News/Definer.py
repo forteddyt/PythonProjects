@@ -46,6 +46,10 @@ def close(*arg):
 	global polling
 	polling = False
 
+def store(*args):
+	stored_search_terms = running_search_terms.copy()
+	printFlush("Running search list stored.")
+
 def show(*args):
 	is_short = False
 	is_stored = False
@@ -101,10 +105,6 @@ def show(*args):
 				key += word + " "
 			key = key.strip()
 
-
-
-
-
 	if is_stored:
 		cur_list = stored_search_terms
 	else:
@@ -121,10 +121,11 @@ def show(*args):
 				printFlush("has terms -> " + str(cur_list.get(term_key)))
 		
 
-call_list = {'close' : close, 'help' : definerHelp, 'show': show}
-call_definitions = {'close' : "--close-- Closes Definer without setting the running list as the stored list.",
+call_list = {'close' : close, 'help' : definerHelp, 'show' : show, 'store' : store}
+call_definitions = {'close' : "--close-- Closes Definer. Does not save any changes in search list.",
 					'help' : "--help <function>-- This function provides a helpful message for functions in Definer. Calling help <function> prints help for Definer object '<function>'. A blank <function> will show available functions",
-					'show' : "--show [mode1] [<search topic>] [mode2]-- Shows the given <search topic>'s term list. An optional [mode1] of '" + show_dict['running'] + "'/'" + show_dict['stored'] + "' shows the running/stored <search topic>-pair list. An optional [mode2] of '" + show_dict['less'] + "' will display the <search topic>(s) without the terms. [mode1] defaults to '" + show_dict['running'] + "'.[mode2] defaults to '" + show_dict['more'] + "'. No given <search topic> will display all search_topics."}
+					'show' : "--show [mode1] [<search topic>] [mode2]-- Shows the given <search topic>'s term list. An optional [mode1] of '" + show_dict['running'] + "'/'" + show_dict['stored'] + "' shows the running/stored <search topic>-pair list. An optional [mode2] of '" + show_dict['less'] + "' will display the <search topic>(s) without the terms. [mode1] defaults to '" + show_dict['running'] + "'.[mode2] defaults to '" + show_dict['more'] + "'. No given <search topic> will display all search_topics.",
+					'store' : "Sets the current running search list as the stored search list. Does not 'update' the search list to file."}
 def formatCallDefinitions():
 	char_limit = 25 # Soft max number of characters per line of function definitions
 
