@@ -200,6 +200,7 @@ def pollReddit():
 
 		base_txt = open(file_path + "base.txt", "w")
 		base_txt.write(start_date)
+		base_txt.write(search_terms)
 		base_txt.close()
 
 		printFlush("**New cycle created.")
@@ -272,6 +273,9 @@ def main():
 		pollReddit()
 	except SystemExit as e:
 		printFlush("**EXITING SCRIPT**")
+	except Exception as e:
+		printFlush(e)
+		time.sleep(3)
 
 if __name__ == "__main__":
 	main()
