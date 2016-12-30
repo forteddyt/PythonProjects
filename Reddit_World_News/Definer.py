@@ -30,33 +30,63 @@ def poll_user():
 	return given
 
 def definerHelp(function = None, *args):
+	if(len(args) > 0):
+		printFlush(err)
+		return
+
 	if function == None:
 		commands = sorted(call_list.keys())
 		printFlush("Available commands: ")
 		for item in commands:
-			printFlush(item)
+			printFlush(item + " -> " + call_definitions[item][0])
 	else:
 		try:
-			print(call_definitions[function])
+			item = call_definitions[function]
+			print(item[0] + "\n" + item[1])
 		except KeyError as e:
 			print("Function '" + function + "' does not exist")
 
 def close(*arg):
+	if(len(args) > 0):
+		printFlush(err)
+		return
+
 	printFlush("Closing Definer.py")
 	global polling
 	polling = False
 
 # Sets running search list as stored search list
 def store(*args):
+	if(len(args) > 0):
+		printFlush(err)
+		return
+
 	stored_search_terms = running_search_terms.copy()
 	printFlush("Running search list stored.")
 
 # Writes stored search list to file
 def update(*args):
-	pass
+	if(len(args) > 0):
+		printFlush(err)
+		return
+
+	base_txt = open(file_path + "base.txt", "r")
+	date = base_txt.readline().strip()
+	base_txt.close()
+
+	base_txt = open(file_path + "base.txt", "w")
+	base_txt.write(date + "\n")
+	base_txt.write(str(stored_search_terms) + "\n")
+	base_txt.close()
+
+	printFlush("Stored search list written to file.")
 
 # Shorthand for store-ing and update-ing
 def save(*args):
+	if(len(args) > 0):
+		printFlush(err)
+		return
+
 	store()
 	update()
 
@@ -131,17 +161,21 @@ def show(*args):
 				printFlush("has terms -> " + str(cur_list.get(term_key)))
 		
 
-call_list = {'close' : close, 'help' : definerHelp, 'show' : show, 'store' : store}
-call_definitions = {'close' : "--close-- Closes Definer. Does not save any changes in search list.",
-					'help' : "--help <function>-- This function provides a helpful message for functions in Definer. Calling help <function> prints help for Definer object '<function>'. A blank <function> will show available functions",
-					'show' : "--show [mode1] [<search topic>] [mode2]-- Shows the given <search topic>'s term list. An optional [mode1] of '" + show_dict['running'] + "'/'" + show_dict['stored'] + "' shows the running/stored <search topic>-pair list. An optional [mode2] of '" + show_dict['less'] + "' will display the <search topic>(s) without the terms. [mode1] defaults to '" + show_dict['running'] + "'.[mode2] defaults to '" + show_dict['more'] + "'. No given <search topic> will display all search_topics.",
-					'store' : "Sets the current running search list as the stored search list. Does not 'update' the search list to file."}
+call_list = {'close' : close, 'help' : definerHelp, 'show' : show, 'store' : store, 'update' : update, 'save' : save}
+call_definitions = {'close' : ["--close--", "Closes Definer. Does not save any changes in search list."],
+					'help' : ["--help <function>--", "This function provides a helpful message for functions in Definer. Calling help <function> prints help for Definer object '<function>'. A blank <function> will show available functions"],
+					'show' : ["--show [mode1] [<search topic>] [mode2]--", "Shows the given <search topic>'s term list. An optional [mode1] of '" + show_dict['running'] + "'/'" + show_dict['stored'] + "' shows the running/stored <search topic>-pair list. An optional [mode2] of '" + show_dict['less'] + "' will display the <search topic>(s) without the terms. [mode1] defaults to '" + show_dict['running'] + "'.[mode2] defaults to '" + show_dict['more'] + "'. No given <search topic> will display all search_topics."],
+					'store' : ["--store--", "Sets the current running search list as the stored search list. Does not 'update' the search list to file."],
+					'update' : ["--update--", "Updates the local base.txt file to match the stored search list."],
+					'save' : ["--save--", "In short, 'store's then 'update's. Sets the running search list as the stored search list, then updates the local base.txt file to match the stored search list."]}
+
+
 def formatCallDefinitions():
-	char_limit = 25 # Soft max number of characters per line of function definitions
+	char_limit = 35 # Soft max number of characters per line of function definitions
 
 	for key in call_definitions:
 		counter = 0
-		line = call_definitions.get(key)
+		line = call_definitions.get(key)[1]
 		tempLine = ""
 		for char in call_definitions.get(key):
 			if counter > char_limit and char == " ":
