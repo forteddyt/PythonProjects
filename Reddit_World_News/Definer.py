@@ -223,10 +223,10 @@ def show(*args):
 
 	if is_stored:
 		cur_list = stored_search_terms
-		addon = " in stored search list."
+		addon = " in the stored search list."
 	else:
 		cur_list = running_search_terms
-		addon = " in running search list."
+		addon = " in the running search list."
 
 	if key != None:
 		if key not in cur_list.keys():
@@ -260,7 +260,7 @@ def formatCallDefinitions():
 		counter = 0
 		line = call_definitions.get(key)[1]
 		tempLine = ""
-		for char in call_definitions.get(key):
+		for char in call_definitions.get(key)[1]:
 			if counter > char_limit and char == " ":
 				temp = line[:counter].strip() + "\n"
 				tempLine += temp
@@ -268,10 +268,13 @@ def formatCallDefinitions():
 				counter = 0
 			counter += 1
 		if tempLine == "":
-			tempLine = call_definitions.get(key)
+			tempLine = call_definitions.get(key)[1]
 		else:
 			tempLine += line.strip()
-		call_definitions.__setitem__(key, tempLine)
+
+		tempItem = [call_definitions.get(key)[0], tempLine]
+
+		call_definitions.__setitem__(key, tempItem)
 
 
 formatCallDefinitions()
