@@ -249,8 +249,8 @@ call_definitions = {'close' : ["--close--", "Closes editor if user is editting a
 					'store' : ["--store--", "Sets the current running search list as the stored search list. Does not 'update' the search list to file."],
 					'update' : ["--update--", "Updates the local base.txt file to match the stored search list."],
 					'save' : ["--save--", "In short, 'store's then 'update's. Sets the running search list as the stored search list, then updates the local base.txt file to match the stored search list."],
-					'edit' : ["--edit [tag] <search topic>--", "Begins editting the existing <search topic>. Fails if <search topic> does not exist. Optional [tag] '-a' adds <search topic>, if it does not already exist. Optional [tag] -r removes <search topic>, if it exists."],
-					'add' : ["--add <search topic/term>--", "Adds the <search topic/term> to the running list, if it does not already exist. Everything after the 'add' command is considered the <search topic/term>'"]}
+					'edit' : ["--edit [tag] <search topic>--", "Begins editting the existing <search topic>, if exists. Optional [tag] '-a' adds <search topic>, if it does not already exist. Optional [tag] '-r' removes <search topic>, if it exists."],
+					'add' : ["--add <search topic/term>--", "Adds the <search topic/term> to the running list, if it does not already exist. Everything after the 'add' command is considered the <search topic/term>'."]}
 
 
 def formatCallDefinitions():
