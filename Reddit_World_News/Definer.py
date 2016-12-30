@@ -11,6 +11,7 @@ stored_search_terms = getSearchTerms()
 running_search_terms = stored_search_terms.copy()
 err = "Invalid combination"
 polling = True
+location = "base"
 
 ########### Definition area of key terms in Definer.py ############
 
@@ -24,7 +25,8 @@ def printFlush(string = ''):
 	sys.stdout.flush()
 
 def poll_user():
-	given = input(">>")
+	global location
+	given = input(">-" + location + "->")
 	given = given.strip()
 	given = given.split(" ")
 	return given
@@ -51,9 +53,83 @@ def close(*arg):
 		printFlush(err)
 		return
 
-	printFlush("Closing Definer.py")
+	global location
 	global polling
-	polling = False
+	
+	if location == "base":
+		printFlush("Closing Definer.py")
+		polling = False
+	else:
+		printFlush("Closing " + location + " editor.")
+		location = "base"
+
+def add(*args):
+	term = ""
+
+	for item in args:
+		term += str(item) + " "
+	term = term.strip()
+
+	if(term == ""):
+		printFlush(err)
+		return
+
+	if(location == "base"):
+		if term in running_search_terms.keys():
+			printFlush("Search term '" + term + "' already exists")
+			return
+		else:
+			running_search_terms.__setitem__(term, [])
+	else:
+		if term in running_search_terms.get(location):
+			printFlush("Search term '" + term + "' already exists")
+			return
+		else:
+			running_search_terms.get(location).append(term)
+
+	printFlush("Term '" + term + "' added.")
+
+
+def edit(*args):
+	if len(args) == 0:
+		printFlush(err)
+		return
+
+	tag = None
+	if args[0] == "-a" or args[0] == "-r":
+		tag = args[0]
+
+	term = ""
+
+	if tag != None and len(args) <= 1:
+		printFlush(err)
+		return
+
+	global location
+
+	if tag == None:
+		for item in args:
+			term += str(item) + " "
+	else:
+		for item in args[1:]:
+			term += str(item) + " "
+	term = term.strip()
+
+	if tag == "-a":
+		add(*args[1:])
+		location = term
+	elif tag == "-r":
+		remove(*args[1:])
+	else:
+		if location == "base":
+			if term in running_search_terms.keys():
+				location = term
+			else:
+				printFlush("Search term '" + term + "' does not exist.")
+		else:
+			printFlush(err)
+			return	
+
 
 # Sets running search list as stored search list
 def store(*args):
@@ -147,13 +223,18 @@ def show(*args):
 
 	if is_stored:
 		cur_list = stored_search_terms
+		addon = " in stored search list."
 	else:
 		cur_list = running_search_terms
+		addon = " in running search list."
 
 	if key != None:
-		printFlush("Search topic '" + key + "'")
-		if not is_short:
-			printFlush("has terms -> " + str(cur_list.get(key)))
+		if key not in cur_list.keys():
+			printFlush("Search topic '" + key + "' does not exist" + addon)
+		else:
+			printFlush("Search topic '" + key + "'")
+			if not is_short:
+				printFlush("has terms -> " + str(cur_list.get(key)))
 	else:
 		for term_key in sorted(cur_list.keys()):
 			printFlush("Search topic '" + term_key + "'")
@@ -161,13 +242,15 @@ def show(*args):
 				printFlush("has terms -> " + str(cur_list.get(term_key)))
 		
 
-call_list = {'close' : close, 'help' : definerHelp, 'show' : show, 'store' : store, 'update' : update, 'save' : save}
-call_definitions = {'close' : ["--close--", "Closes Definer. Does not save any changes in search list."],
+call_list = {'close' : close, 'help' : definerHelp, 'show' : show, 'store' : store, 'update' : update, 'save' : save, 'edit' : edit, 'add' : add}
+call_definitions = {'close' : ["--close--", "Closes editor if user is editting a <search topic>. Closes Definer otherwise. Does not write any changes in search list to file."],
 					'help' : ["--help <function>--", "This function provides a helpful message for functions in Definer. Calling help <function> prints help for Definer object '<function>'. A blank <function> will show available functions"],
 					'show' : ["--show [mode1] [<search topic>] [mode2]--", "Shows the given <search topic>'s term list. An optional [mode1] of '" + show_dict['running'] + "'/'" + show_dict['stored'] + "' shows the running/stored <search topic>-pair list. An optional [mode2] of '" + show_dict['less'] + "' will display the <search topic>(s) without the terms. [mode1] defaults to '" + show_dict['running'] + "'.[mode2] defaults to '" + show_dict['more'] + "'. No given <search topic> will display all search_topics."],
 					'store' : ["--store--", "Sets the current running search list as the stored search list. Does not 'update' the search list to file."],
 					'update' : ["--update--", "Updates the local base.txt file to match the stored search list."],
-					'save' : ["--save--", "In short, 'store's then 'update's. Sets the running search list as the stored search list, then updates the local base.txt file to match the stored search list."]}
+					'save' : ["--save--", "In short, 'store's then 'update's. Sets the running search list as the stored search list, then updates the local base.txt file to match the stored search list."],
+					'edit' : ["--edit [tag] <search topic>--", "Begins editting the existing <search topic>. Fails if <search topic> does not exist. Optional [tag] '-a' adds <search topic>, if it does not already exist. Optional [tag] -r removes <search topic>, if it exists."],
+					'add' : ["--add <search topic/term>--", "Adds the <search topic/term> to the running list, if it does not already exist. Everything after the 'add' command is considered the <search topic/term>'"]}
 
 
 def formatCallDefinitions():
