@@ -1,2 +1,2 @@
 12/29/16
-{'Saudi Arabia': ['Saudi', 'Arabia'], 'School Shooting': ['Shooting']}
+{'School Shooting': ['Shooting'], 'Saudi Arabia': ['Saudi', 'Arabia']}
