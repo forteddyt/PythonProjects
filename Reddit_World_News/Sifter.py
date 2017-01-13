@@ -190,16 +190,36 @@ class TopicEvent:
 		return self.__str__()
 
 
-# Deletes both the Global Events COPY and Topic Specific Events COPY files
+# Moves both the Global Events COPY and Topic Specific Events COPY files to the storage folder
 # global_name and specific_name are the file paths to the original files
 def dump(global_name, specific_name):
-	printFlush("Dumping 'Global' COPY...")
-	os.remove(global_name + "COPY.txt")
-	printFlush("**'Global' COPY dumped.")
+	import os
+	import errno
 
-	printFlush("Dumping specific COPY...")
-	os.remove(specific_name + "COPY.txt")
-	printFlush("**Specific COPY dumped.")
+
+
+	storage_dir = file_path + "PAST_POLLS\\"
+
+	printFlush("Checking storage directory...")
+	try:
+		os.makedirs(storage_dir)
+		printFlush("**Storage directory created!")
+	except OSError as exception:
+		if exception.errno != errno.EEXIST:
+			raise
+		else:
+			printFlush("**Storage directory exists!")
+
+	global_name_storage = global_name.replace(file_path, storage_dir)
+	specific_name_storage = specific_name.replace(file_path, storage_dir)
+
+	printFlush("Moving 'Global' COPY to storage...")
+	os.rename(global_name + "COPY.txt", global_name_storage + "COPY.txt")
+	printFlush("**'Global' COPY moved.")
+
+	printFlush("Moving 'Specific' COPY to storage...")
+	os.rename(specific_name + "COPY.txt", specific_name_storage + "COPY.txt")
+	printFlush("**'Specific' COPY moved.")
 
 try:
 	printFlush("Starting Sifter.py script...")
@@ -213,7 +233,7 @@ try:
 except FileNotFoundError as e:
 	printFlush("A file was not found!!")
 	print(e)
-	printFlush("** EXITING SCRIPT**")
+	printFlush("**EXITING SCRIPT**")
 except SystemError as e:
 	printFlush("**EXITING SCRIPT**")
 finally:
