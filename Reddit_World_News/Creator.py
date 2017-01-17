@@ -1,6 +1,10 @@
 from docx import Document
 
+def createDocx():
+
+
 def main():
-	pass
+	createDocx()
+
 if __name__ == "__main__":
 	main()
