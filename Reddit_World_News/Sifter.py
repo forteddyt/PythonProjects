@@ -90,6 +90,8 @@ def panGlobal(global_name):
 
 		# Writes the next 4 lines into the original files
 		if (add_post == True and counter % 4 != 0):
+			if counter % 4 == 1 :
+				line = line.strip() + " "
 			dish.write(line)
 
 		counter += 1
@@ -214,11 +216,24 @@ def dump(global_name, specific_name):
 	specific_name_storage = specific_name.replace(file_path, storage_dir)
 
 	printFlush("Moving 'Global' COPY to storage...")
-	os.rename(global_name + "COPY.txt", global_name_storage + "COPY.txt")
+	movedGlobal = False
+	counter = 0
+	while movedGlobal is False:
+		try:
+			if counter == 0:
+				os.rename(global_name + "COPY.txt", global_name_storage + "COPY.txt")
+			else:
+				os.rename(global_name + "COPY.txt", global_name_storage + "COPY" + str(counter) + ".txt")
+			movedGlobal = True
+		except FileExistsError as exception:
+			counter += 1
 	printFlush("**'Global' COPY moved.")
 
 	printFlush("Moving 'Specific' COPY to storage...")
-	os.rename(specific_name + "COPY.txt", specific_name_storage + "COPY.txt")
+	if counter != 0:
+		os.rename(specific_name + "COPY.txt", specific_name_storage + "COPY" + str(counter) + ".txt")
+	else:
+		os.rename(specific_name + "COPY.txt", specific_name_storage + "COPY.txt")
 	printFlush("**'Specific' COPY moved.")
 
 try:
