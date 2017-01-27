@@ -12,9 +12,7 @@ def printFlush(string = ''):
 	print(string)
 	sys.stdout.flush()
 
-# Renames the Global Events and Topic Specific Events files to end with COPY.txt
-# Recreates the Global Events and Topic Specific Events files as blank .txt with original names
-def renameProcedure():
+def getEventNames():
 	import datetime
 
 	# Uses base.txt to determine the polling interval
@@ -36,6 +34,19 @@ def renameProcedure():
 	# Poller.py stores with RAW tag. RAW tag added temporarily in upcoming code
 	global_events_f = file_path + "Global Events - " + str(start_date) + " to " + str(end_date)
 	topic_events_f = file_path + "Topic Specific Events - " + str(start_date) + " to " + str(end_date)
+
+	events = [global_events_f, topic_events_f]
+	printFlush("**Event names obtained.")
+	return events
+
+
+
+# Renames the Global Events and Topic Specific Events files to end with COPY.txt
+# Recreates the Global Events and Topic Specific Events files as blank .txt with original names
+def renameProcedure():
+	events = getEventNames()
+	global_events_f = events[0]
+	topic_events_f = events[1]
 
 	# Attempts to rename the dity Global Events .txt to end with COPY
 	printFlush("Moving the dirt to COPY...")
@@ -235,21 +246,24 @@ def dump(global_name, specific_name):
 	else:
 		os.rename(specific_name + "COPY.txt", specific_name_storage + "COPY.txt")
 	printFlush("**'Specific' COPY moved.")
+def main():
+	try:
+		printFlush("Starting Sifter.py script...")
 
-try:
-	printFlush("Starting Sifter.py script...")
+		name_set = renameProcedure()
+		panGlobal(name_set[0])
+		panSpecific(name_set[1])
+		dump(name_set[0], name_set[1])
 
-	name_set = renameProcedure()
-	panGlobal(name_set[0])
-	panSpecific(name_set[1])
-	dump(name_set[0], name_set[1])
+		printFlush("**Script complete.")
+	except FileNotFoundError as e:
+		printFlush("A file was not found!!")
+		print(e)
+		printFlush("**EXITING SCRIPT**")
+	except SystemError as e:
+		printFlush("**EXITING SCRIPT**")
+	finally:
+		time.sleep(1.5)
 
-	printFlush("**Script complete.")
-except FileNotFoundError as e:
-	printFlush("A file was not found!!")
-	print(e)
-	printFlush("**EXITING SCRIPT**")
-except SystemError as e:
-	printFlush("**EXITING SCRIPT**")
-finally:
-	time.sleep(1.5)
+if __name__ == "__main__":
+	main()
