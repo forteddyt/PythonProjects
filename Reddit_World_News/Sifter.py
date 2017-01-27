@@ -32,8 +32,8 @@ def getEventNames():
 
 	# Naming convention from Poller used in storing file locations
 	# Poller.py stores with RAW tag. RAW tag added temporarily in upcoming code
-	global_events_f = file_path + "Global Events - " + str(start_date) + " to " + str(end_date)
-	topic_events_f = file_path + "Topic Specific Events - " + str(start_date) + " to " + str(end_date)
+	global_events_f = "Global Events - " + str(start_date) + " to " + str(end_date)
+	topic_events_f = "Topic Specific Events - " + str(start_date) + " to " + str(end_date)
 
 	events = [global_events_f, topic_events_f]
 	printFlush("**Event names obtained.")
@@ -45,8 +45,8 @@ def getEventNames():
 # Recreates the Global Events and Topic Specific Events files as blank .txt with original names
 def renameProcedure():
 	events = getEventNames()
-	global_events_f = events[0]
-	topic_events_f = events[1]
+	global_events_f = file_path + events[0]
+	topic_events_f = file_path + events[1]
 
 	# Attempts to rename the dity Global Events .txt to end with COPY
 	printFlush("Moving the dirt to COPY...")
